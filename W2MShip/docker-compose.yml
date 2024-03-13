@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  app:
+    image: W2MShip
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "local" # Spring active profile
+      SPRING_DATASOURCE_URL: "jdbc:h2:mem:shipsdb"
+      SPRING_DATASOURCE_USERNAME: "sa"
+      SPRING_DATASOURCE_PASSWORD: ""
+    depends_on:
+      - db
+
+  db:
+    image: "alpine/h2:latest" # Docker image
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./data:/data
+    command: ["-ifNotExists", "-web", "-webAllowOthers", "-tcp", "-tcpAllowOthers", "-tcpPort", "9092"]

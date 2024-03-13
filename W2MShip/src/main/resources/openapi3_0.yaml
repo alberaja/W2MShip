@@ -1,0 +1,178 @@
+openapi: 3.0.1
+info:
+  title: Ships OpenAPI definition
+  version: v0
+  description: OpenAPI definition to Ships API
+  contact: 
+    name: AlbertoJimenez
+servers:
+  - url: http://localhost:8080
+    description: localhost
+paths:
+  /api/ships/{id}:
+    get:
+      tags:
+        - ship-controller
+      summary: Get Ships by ID
+      description: ' Get Ships by given ID'
+      operationId: getById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+    put:
+      tags:
+        - ship-controller
+      summary: Update Ships
+      description: ' Update Ships which ve that ID of the Path and update with new ship of the body'
+      operationId: updateShip
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+    delete:
+      tags:
+        - ship-controller
+      summary: Delete Ships
+      description: ' Delete Ships which ve that ID of the Path'
+      operationId: deleteShip
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No Content
+  /api/ships:
+    get:
+      tags:
+        - ship-controller
+      summary: Get Ships Paged
+      description: ' Get Ships paging By page and size'
+      operationId: getAll
+      parameters:
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: true
+          schema:
+            minimum: 1
+            type: integer
+            format: int32
+            default: 5
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+    post:
+      tags:
+        - ship-controller
+      summary: Add containing Ships
+      description: ' Add Ships given in body'
+      operationId: addShip
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ResponseDTO'
+  /api/ships/search:
+    get:
+      tags:
+        - ship-controller
+      summary: Get containing Ships
+      description: ' Get Ships containing a given name'
+      operationId: getByNameContaining
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            maxLength: 20
+            minLength: 0
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResponseDTO'
+components:
+  schemas:
+    ShipDTO:
+      required:
+        - name
+      type: object
+      description: The Input shipDTO with only name.
+      properties:
+        name:
+          maxLength: 20
+          minLength: 0
+          type: string
+          description: The ship name.
+          example: "ship1"
+    ResponseDTO:
+      required:
+        - name
+      type: object
+      description: The Response ship with id and name.
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          maxLength: 20
+          minLength: 0
+          type: string
+          example: "ship1"

@@ -1,0 +1,4 @@
+FROM openjdk:21
+LABEL maintainer ="albertoja"
+ADD target/W2MExampleAlbetoJA-0.0.1-SNAPSHOT.jar W2MExampleAlbetoJA-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","W2MShip-0.0.1-SNAPSHOT.jar"]

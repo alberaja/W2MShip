@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+   <!-- context: ejecutarlo solo en local, no en test -->
+    <include file="./changes/01-create-ship.xml" relativeToChangelogFile="true" context="local"/>
+    <include file="./changes/01-create-ship-test.xml" relativeToChangelogFile="true" context="test"/>
+
+</databaseChangeLog>

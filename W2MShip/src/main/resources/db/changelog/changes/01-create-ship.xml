@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+
+    <changeSet id="01" author="alberto.jimenez">
+
+        <createTable tableName="ships" remarks="Ships master data table">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ship"/>
+            </column>            
+            <column name="name" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+         <sqlFile path="../../sql/insert-ships.sql" relativeToChangelogFile="true"/>   
+     
+    </changeSet>
+
+
+</databaseChangeLog>
